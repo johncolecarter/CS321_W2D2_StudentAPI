@@ -49,7 +49,7 @@ namespace CS321_W2D2_StudentAPI.Services
             {
                 throw new ApplicationException("BirthDate cannot be in the future.");
             }
-            if (DateTime.Today.Year - student.BirthDate.Year > 18)
+            if (DateTime.Today.Year - student.BirthDate.Year > 38)
             {
                 throw new ApplicationException("You're too old to be a student!");
             }
@@ -58,27 +58,48 @@ namespace CS321_W2D2_StudentAPI.Services
         public Student Get(int id)
         {
             // return the specified Student or null if not found
+            var currentStudent = _students.FirstOrDefault(p => p.Id == id);
+
+            if(currentStudent == null)
+            {
+                return null;
+            } else
+            {
+                return currentStudent;
+            }
+            
         }
 
         public IEnumerable<Student> GetAll()
         {
             // return all students
+            return _students;
         }
 
         public Student Update(Student updatedStudent)
         {
-            // get the Student object in the current list with this id 
+            // get the Student object in the current list with this id
+            var currentStudent = _students.FirstOrDefault(p => p.Id == updatedStudent.Id);
 
-            // return null if item to update isn't found
+            // return null if the Post to update isn't found
+            if (currentStudent == null) return null;
 
-            // copy the property values from the updated student into the current student object
+            // copy the property values from the updated post into the current post object
 
-            // return student
+            currentStudent.FirstName = updatedStudent.FirstName;
+            currentStudent.LastName = updatedStudent.LastName;
+            currentStudent.BirthDate = updatedStudent.BirthDate;
+            currentStudent.Email = updatedStudent.Email;
+            currentStudent.Phone = updatedStudent.Phone;
+
+            return currentStudent;
         }
 
         public void Remove(Student student)
         {
+            var currentStudent = _students.FirstOrDefault(p => p.Id == student.Id);
             // remove student
+            _students.Remove(currentStudent);
         }
     }
 }

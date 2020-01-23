@@ -11,9 +11,9 @@ namespace CS321_W2D2_StudentAPI.Controllers
         private readonly IStudentsService _studentsService;
 
         // Constructor
-        public StudentsController(/* HINT: what parameter is necessary to inject the service? */)
+        public StudentsController(IStudentsService studentsService)
         {
-            // HINT: keep a reference to the incoming service
+            _studentsService = studentsService;
         }
 
         // get all students
